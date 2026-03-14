@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Auwal Salisu – Profile</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --orchid-light:  #e8a0d8;
+      --orchid-mid:    #c45fa0;
+      --orchid-deep:   #8b2a6e;
+      --orchid-glow:   #f0c0e8;
+      --orchid-violet: #7b3f9e;
+      --accent: #e8a0d8;
+      --accent-dim:    #c45fa0;
+      --surface: #160d14;
+      --card: #160d14;
+      --border: rgba(196, 95, 160, 0.15);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #0e080d;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'DM Sans', sans-serif;
+      overflow: hidden;
+    }
+
+    /* Subtle noise texture overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      background-size: 150px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Ambient glow blobs */
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.12;
+      pointer-events: none;
+      z-index: 0;
+      animation: drift 12s ease-in-out infinite alternate;
+    }
+    .blob-1 { width: 420px; height: 420px; background: radial-gradient(circle, var(--orchid-deep), transparent 70%); opacity: 0.28; top: -100px; left: -100px; animation-delay: 0s; }
+    .blob-2 { width: 300px; height: 300px; background: radial-gradient(circle, var(--orchid-violet), transparent 70%); opacity: 0.22; bottom: -80px; right: -60px; animation-delay: -5s; }
+
+    @keyframes drift {
+      from { transform: translate(0,0) scale(1); }
+      to   { transform: translate(30px, 20px) scale(1.08); }
+    }
+
+    /* Card */
+    .card {
+      position: relative;
+      z-index: 1;
+      background: linear-gradient(160deg, rgba(30,12,26,0.95), rgba(18,8,16,0.98));
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 44px 36px 40px;
+      width: 340px;
+      box-shadow:
+        0 0 0 1px rgba(196,95,160,0.08),
+        0 20px 60px rgba(139,42,110,0.25),
+        0 40px 100px rgba(0,0,0,0.6);
+      animation: fadeUp 0.7s cubic-bezier(0.22,1,0.36,1) both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Avatar ring */
+    .avatar-wrap {
+      position: relative;
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 20px;
+    }
+    .avatar-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, var(--orchid-glow), var(--orchid-mid), var(--orchid-violet), var(--orchid-deep), var(--orchid-mid), var(--orchid-glow));
+      animation: spin 6s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .avatar-wrap img {
+      position: relative;
+      z-index: 1;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--card);
+    }
+
+    /* Avatar placeholder */
+    .avatar-placeholder {
+      position: relative;
+      z-index: 1;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2a1225, #180d18);
+      border: 3px solid var(--card);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 300;
+      color: var(--accent);
+      letter-spacing: 1px;
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: 26px;
+      color: var(--orchid-glow);
+      margin: 0 0 4px;
+      letter-spacing: 0.02em;
+      line-height: 1.2;
+    }
+
+    .location {
+      font-size: 11.5px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+
+    .bio {
+      font-size: 13px;
+      color: rgba(255,255,255,0.38);
+      font-style: italic;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      margin: 0 0 28px;
+      line-height: 1.55;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(196,95,160,0.3), transparent);
+      margin-bottom: 24px;
+    }
+
+    /* Links */
+    .links { display: flex; flex-direction: column; gap: 10px; }
+
+    .link-btn {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 13px 18px;
+      border-radius: 12px;
+      background: rgba(196, 95, 160, 0.06);
+      border: 1px solid rgba(196, 95, 160, 0.12);
+      color: rgba(232, 160, 216, 0.7);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.25s, border-color 0.25s, color 0.25s, transform 0.2s;
+      overflow: hidden;
+      animation: fadeUp 0.7s cubic-bezier(0.22,1,0.36,1) both;
+    }
+
+    .link-btn:nth-child(1) { animation-delay: 0.1s; }
+    .link-btn:nth-child(2) { animation-delay: 0.18s; }
+    .link-btn:nth-child(3) { animation-delay: 0.26s; }
+    .link-btn:nth-child(4) { animation-delay: 0.34s; }
+    .link-btn:nth-child(5) { animation-delay: 0.42s; }
+
+    .link-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, var(--accent) 0%, transparent 100%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .link-btn:hover {
+      background: rgba(196, 95, 160, 0.13);
+      border-color: rgba(196, 95, 160, 0.35);
+      color: var(--orchid-glow);
+      transform: translateY(-1px);
+    }
+    .link-btn:hover::before { opacity: 0.04; }
+    .link-btn:hover .icon { color: var(--orchid-light); }
+    .link-btn:active { transform: translateY(0px) scale(0.99); }
+
+    .btn-label { position: relative; z-index: 1; }
+    .icon {
+      position: relative;
+      z-index: 1;
+      font-size: 14px;
+      color: rgba(196, 95, 160, 0.3);
+      transition: color 0.25s;
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: 28px;
+      font-size: 10.5px;
+      color: rgba(196, 95, 160, 0.2);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+
+  <div class="card text-center">
+
+    <!-- Avatar -->
+    <div class="avatar-wrap">
+      <div class="avatar-placeholder">JR</div>
+    </div>
+
+    <!-- Identity -->
+    <h1>Jessica Randall</h1>
+    <p class="location">London, United Kingdom</p>
+    <p class="bio">"Front-end developer and avid reader."</p>
+
+    <div class="divider"></div>
+
+    <!-- Links -->
+    <div class="links">
+
+      <a href="#" class="link-btn">
+        <span class="btn-label">GitHub</span>
+        <span class="icon">↗</span>
+      </a>
+
+      <a href="#" class="link-btn">
+        <span class="btn-label">Frontend Mentor</span>
+        <span class="icon">↗</span>
+      </a>
+
+      <a href="#" class="link-btn">
+        <span class="btn-label">LinkedIn</span>
+        <span class="icon">↗</span>
+      </a>
+
+      <a href="#" class="link-btn">
+        <span class="btn-label">Twitter</span>
+        <span class="icon">↗</span>
+      </a>
+
+      <a href="#" class="link-btn">
+        <span class="btn-label">Instagram</span>
+        <span class="icon">↗</span>
+      </a>
+
+    </div>
+
+    <p class="footer">© 2026 Jessica Randall</p>
+  </div>
+
+</body>
+</html>
